@@ -1,0 +1,43 @@
+chemical_name,pcpb_registered,kephis_flagged,banned_in_kenya,restriction_reason
+glyphosate,True,False,False,
+chlorpyrifos,True,True,False,Under review — neurotoxicity
+endosulfan,False,True,True,Stockholm Convention POP
+DDT,False,True,True,Stockholm Convention POP
+paraquat,True,True,False,Restricted use — licensed applicators only
+carbofuran,True,True,False,Restricted — highly toxic
+methomyl,True,True,False,Restricted — highly toxic
+aldicarb,False,True,True,Extremely toxic — banned
+aldrin,False,True,True,Stockholm Convention POP
+dieldrin,False,True,True,Stockholm Convention POP
+heptachlor,False,True,True,Stockholm Convention POP
+lindane,False,True,True,Stockholm Convention POP
+mirex,False,True,True,Stockholm Convention POP
+toxaphene,False,True,True,Stockholm Convention POP
+chlordane,False,True,True,Stockholm Convention POP
+mancozeb,True,False,False,
+cypermethrin,True,False,False,
+deltamethrin,True,False,False,
+imidacloprid,True,False,False,
+acetamiprid,True,False,False,
+abamectin,True,False,False,
+emamectin benzoate,True,False,False,
+spinosad,True,False,False,
+indoxacarb,True,False,False,
+profenofos,True,True,False,Restricted — handle with care
+dimethoate,True,True,False,Restricted
+aluminium phosphide,True,True,False,Fumigant — licensed use only
+zinc phosphide,True,True,False,Rodenticide — licensed use only
+brodifacoum,True,True,False,Rodenticide — restricted
+"2,4-D",True,False,False,
+atrazine,True,False,False,
+metolachlor,True,False,False,
+azoxystrobin,True,False,False,
+tebuconazole,True,False,False,
+propiconazole,True,False,False,
+lambda-cyhalothrin,True,False,False,
+thiamethoxam,True,False,False,
+clothianidin,True,False,False,Under review — bee toxicity
+parathion,False,True,True,Banned — extremely toxic
+phorate,False,True,True,Banned — extremely toxic
+disulfoton,False,True,True,Banned — extremely toxic
+methyl bromide,False,True,True,Montreal Protocol — ozone depleting
