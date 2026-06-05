@@ -2,72 +2,56 @@
 """Pydantic models for API request/response"""
 
 from pydantic import BaseModel, Field
-from typing import List, Optional, Dict, Any
+from typing import List, Optional
 from enum import Enum
 
+
 class WHOClass(str, Enum):
-    """WHO Hazard Classes"""
     IA = "Ia"
     IB = "Ib"
     II = "II"
     III = "III"
     U = "U"
 
+
 class SafetyLevel(str, Enum):
-    """Safety levels for farmers"""
     SAFE = "SAFE"
     CAUTION = "CAUTION"
     WARNING = "WARNING"
     BLOCKED = "BLOCKED"
+    UNKNOWN = "UNKNOWN"
 
-# Request Models
+
+# ── Request Models ──────────────────────────────────────────
+
 class ChemicalPredictRequest(BaseModel):
-    """Request for single chemical prediction"""
-    chemical_name: str = Field(..., description="Name of the chemical/pesticide", example="glyphosate")
-    
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "chemical_name": "chlorpyrifos"
-            }
-        }
+    chemical_name: str = Field(..., description="Name of the chemical/pesticide")
+
+    model_config = {
+        "json_schema_extra": {"example": {"chemical_name": "glyphosate"}}
+    }
+
 
 class BatchPredictRequest(BaseModel):
-    """Request for batch chemical predictions"""
-    chemicals: List[str] = Field(..., description="List of chemical names", min_items=1, max_items=100)
-    
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "chemicals": ["glyphosate", "chlorpyrifos", "mancozeb"]
-            }
-        }
+    chemicals: List[str] = Field(..., description="List of chemical names", min_length=1, max_length=100)
+
+    model_config = {
+        "json_schema_extra": {"example": {"chemicals": ["glyphosate", "chlorpyrifos", "mancozeb"]}}
+    }
+
 
 class DiseaseRequest(BaseModel):
-    """Request for disease treatment recommendation"""
-    disease_name: str = Field(..., description="Name of the crop disease", example="maize leaf blight")
-    confidence: Optional[float] = Field(0.85, description="Model 1 confidence score", ge=0, le=1)
-    
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "disease_name": "tomato late blight",
-                "confidence": 0.92
-            }
-        }
+    disease_name: str = Field(..., description="Name of the crop disease")
+    confidence: Optional[float] = Field(0.85, description="Model confidence score", ge=0, le=1)
 
-# Response Models
-class SafetyInfo(BaseModel):
-    """Safety information for a chemical"""
-    level: str
-    message: str
-    ppe: str
-    action: str
-    color: str
-    reentry_hours: int
+    model_config = {
+        "json_schema_extra": {"example": {"disease_name": "tomato late blight", "confidence": 0.92}}
+    }
+
+
+# ── Response Models ─────────────────────────────────────────
 
 class ChemicalPredictResponse(BaseModel):
-    """Response for single chemical prediction"""
     success: bool
     chemical: str
     who_class: Optional[str] = None
@@ -80,8 +64,8 @@ class ChemicalPredictResponse(BaseModel):
     ld50_oral_mgkg: Optional[float] = None
     error_message: Optional[str] = None
 
+
 class TreatmentRecommendation(BaseModel):
-    """Treatment recommendation for a disease"""
     chemical: str
     who_class: str
     safety_level: str
@@ -90,8 +74,8 @@ class TreatmentRecommendation(BaseModel):
     reentry_hours: int
     confidence: float
 
+
 class DiseaseResponse(BaseModel):
-    """Response for disease treatment recommendation"""
     success: bool
     disease: str
     confidence: float
@@ -102,9 +86,11 @@ class DiseaseResponse(BaseModel):
     total_chemicals_checked: int
     error_message: Optional[str] = None
 
+
 class HealthResponse(BaseModel):
-    """Health check response"""
     status: str
     model_loaded: bool
     database_size: int
     version: str
+
+    model_config = {"protected_namespaces": ()}
