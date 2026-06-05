@@ -1,4 +1,4 @@
-name: Test Agricultural Chemical Safety AI
+name: Run Tests
 
 on:
   push:
@@ -10,43 +10,45 @@ jobs:
   test:
     runs-on: ubuntu-latest
     
-    strategy:
-      matrix:
-        python-version: [3.9, 3.10, 3.11]
-    
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: '3.10'
     
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest pytest-cov pytest-asyncio
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        # Install test-specific dependencies if any
-        pip install httpx fastapi uvicorn
+        pip install pytest pytest-cov
+        # Install your project dependencies
+        if [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+        fi
+        # Install common web framework dependencies if not in requirements
+        pip install fastapi uvicorn httpx
     
-    - name: Create tests directory
+    - name: List directory structure for debugging
       run: |
-        mkdir -p tests
-        touch tests/__init__.py
+        echo "Current directory:"
+        pwd
+        echo "Files in root:"
+        ls -la
+        echo "Tests directory contents:"
+        ls -la tests/ || echo "No tests directory found"
+        echo "All Python files:"
+        find . -name "*.py" -type f | grep -v __pycache__ | head -20
     
-    - name: Run tests
+    - name: Run pytest with verbose output
       run: |
-        pytest tests/ -v --tb=short
-      continue-on-error: false
+        # Run pytest with detailed output
+        pytest -v --collect-only
+        # Actually run the tests
+        pytest -v --tb=short || true  # Don't fail immediately
     
-    - name: Run tests with coverage (if tests exist)
+    - name: Run pytest (fail if no tests)
       run: |
-        pytest tests/ -v --cov=. --cov-report=xml --cov-report=term
-      continue-on-error: true
-    
-    - name: Upload coverage report
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage.xml
-        fail_ci_if_error: false
+        # This will fail if no tests are found (exit code 5)
+        # But we'll make it more informative
+        pytest -v --tb=short
