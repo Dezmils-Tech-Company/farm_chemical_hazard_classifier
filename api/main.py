@@ -1,10 +1,16 @@
 # api/main.py
 """FastAPI application for Agricultural Chemical Safety AI"""
 
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 import sys
 from pathlib import Path
+
+try:
+    from fastapi import FastAPI
+    from fastapi.middleware.cors import CORSMiddleware
+except ImportError as exc:
+    raise ImportError(
+        "FastAPI is required to run this application. Install it with `pip install fastapi`."
+    ) from exc
 
 project_root = Path(__file__).parent.parent
 sys.path.append(str(project_root))
