@@ -3,8 +3,7 @@
 # 🌾 Safe_Shamba AI
 
 ### *AI-Powered Pesticide Safety System for Kenyan Farmers*
-```
-```
+
 Overview
 --------
 Safe_Shamba AI  assists farmers by predicting hazard classifications for agricultural chemicals and delivering concise, actionable safety guidance. The system is implemented with a Random Forest classifier and served via a FastAPI-based REST API.
@@ -81,7 +80,7 @@ For full documentation and deployment instructions, refer to the docs/ directory
 
 ---
 ```
-```
+
 ### Classification Report
 
 | WHO Class | Precision | Recall | F1-Score | Support |
@@ -92,7 +91,7 @@ For full documentation and deployment instructions, refer to the docs/ directory
 | Ib (BLOCKED) | 1.00 | 1.00 | 1.00 | 2 |
 | **Average** | **1.00** | **1.00** | **1.00** | **10** |
 
-```
+
 ```
 ### Test Results (7 Chemicals)
 
@@ -106,7 +105,7 @@ For full documentation and deployment instructions, refer to the docs/ directory
 | Atrazine | III (CAUTION) | III | 85% | ✅ |
 | Cypermethrin | II (WARNING) | II | 100% | ✅ |
 ```
-```
+
 ---
 
 ## 🚀 Installation
@@ -114,7 +113,7 @@ For full documentation and deployment instructions, refer to the docs/ directory
 ### Prerequisites
 - Python 3.11+
 - pip package manager
-
+```
 ### Local Setup
 
 ```bash
@@ -131,7 +130,7 @@ python api/main.py
 # Open in browser
 http://localhost:8000/docs
 ```
-
+```
 ### Docker Setup
 
 ```bash
@@ -144,13 +143,14 @@ docker run -p 8000:8000 safe-shamba-api
 # Or use docker-compose
 docker-compose up -d
 ```
-
+```
 ### Cloud Deployment (Render.com)
 
 1. Push code to GitHub
 2. Create `render.yaml` in root
 3. Connect repository to Render
 4. Deploy automatically
+```
 ```
 ---
 
@@ -201,7 +201,7 @@ curl -X POST http://localhost:8000/api/predict \
   "ld50_oral_mgkg": 5600.0
 }
 ```
-
+```
 #### 2. Disease Treatment Recommendation
 
 **Request:**
@@ -231,7 +231,7 @@ curl -X POST http://localhost:8000/api/disease/recommend \
   "organic_alternative": "Neem oil spray + remove infected leaves"
 }
 ```
-
+```
 #### 3. Batch Prediction
 
 **Request:**
@@ -252,22 +252,23 @@ curl -X POST http://localhost:8000/api/predict/batch \
   ]
 }
 ```
-
+```
 #### 4. List All Diseases
 
 ```bash
 curl http://localhost:8000/api/diseases
 ```
-
+```
 #### 5. List All Chemicals
 
 ```bash
 curl http://localhost:8000/api/chemicals?limit=20
 ```
-
+```
 ### Interactive Documentation
 
 Open your browser to: **http://localhost:8000/docs**
+```
 ```
 ---
 
@@ -278,13 +279,13 @@ Open your browser to: **http://localhost:8000/docs**
 ```bash
 python test_api_endpoints.py
 ```
-
+```
 ### Quick Test
 
 ```bash
 python test_api_endpoints.py --quick
 ```
-
+```
 ### Expected Output
 
 ```
