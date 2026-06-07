@@ -1,32 +1,13 @@
 ```markdown
-<div align="center">
-  
+
 # 🌾 Safe_Shamba AI
 
 ### *AI-Powered Pesticide Safety System for Kenyan Farmers*
 
-[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.104-green.svg)](https://fastapi.tiangolo.com/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![API Status](https://img.shields.io/badge/API-Online-success.svg)](http://localhost:8000/docs)
-
-</div>
-
----
-
-## 📋 Table of Contents
-
-- [Overview](#-overview)
-- [Problem Statement](#-problem-statement)
-- [System Architecture](#-system-architecture)
-- [Features](#-features)
-[Project Title]
-
-Safe_Shamba AI — Agricultural Chemical Safety
 
 Overview
 --------
-Safe_Shamba AI ("Safe Farm") assists farmers by predicting hazard classifications for agricultural chemicals and delivering concise, actionable safety guidance. The system is implemented with a Random Forest classifier and served via a FastAPI-based REST API.
+Safe_Shamba AI  assists farmers by predicting hazard classifications for agricultural chemicals and delivering concise, actionable safety guidance. The system is implemented with a Random Forest classifier and served via a FastAPI-based REST API.
 
 Highlights
 ----------
@@ -101,7 +82,7 @@ For full documentation and deployment instructions, refer to the docs/ directory
 ---
 
 ## 📈 Model Performance
-
+```
 ### Classification Report
 
 | WHO Class | Precision | Recall | F1-Score | Support |
@@ -110,21 +91,10 @@ For full documentation and deployment instructions, refer to the docs/ directory
 | III (CAUTION) | 1.00 | 1.00 | 1.00 | 2 |
 | II (WARNING) | 1.00 | 1.00 | 1.00 | 2 |
 | Ib (BLOCKED) | 1.00 | 1.00 | 1.00 | 2 |
-| <strong>Average</strong> | <strong>1.00</strong> | <strong>1.00</strong> | <strong>1.00</strong> | <strong>10</strong> |
+| **Average** | **1.00** | **1.00** | **1.00** | **10** |
 
-### Feature Importance
-
-| Feature | Importance |
-|---------|------------|
-| ld50_rat_oral_mgkg | 0.287 |
-| xlogp | 0.120 |
-| molecularweight | 0.102 |
-| tpsa | 0.100 |
-| complexity | 0.092 |
-| hbonddonorcount | 0.079 |
-| name_length | 0.075 |
-| hbondacceptorcount | 0.059 |
-
+```
+```
 ### Test Results (7 Chemicals)
 
 | Chemical | Predicted | Actual | Confidence | Status |
@@ -136,7 +106,7 @@ For full documentation and deployment instructions, refer to the docs/ directory
 | Mancozeb | U (SAFE) | U | 100% | ✅ |
 | Atrazine | III (CAUTION) | III | 85% | ✅ |
 | Cypermethrin | II (WARNING) | II | 100% | ✅ |
-
+```
 ---
 
 ## 🚀 Installation
@@ -209,14 +179,14 @@ http://localhost:8000/api
 
 #### 1. Predict Chemical Safety
 
-<strong>Request:</strong>
+**Request:**
 ```bash
 curl -X POST http://localhost:8000/api/predict \
   -H "Content-Type: application/json" \
   -d '{"chemical_name": "glyphosate"}'
 ```
 
-<strong>Response:</strong>
+**Response:**
 ```json
 {
   "success": true,
@@ -234,14 +204,14 @@ curl -X POST http://localhost:8000/api/predict \
 
 #### 2. Disease Treatment Recommendation
 
-<strong>Request:</strong>
+**Request:**
 ```bash
 curl -X POST http://localhost:8000/api/disease/recommend \
   -H "Content-Type: application/json" \
   -d '{"disease_name": "maize leaf blight", "confidence": 0.87}'
 ```
 
-<strong>Response:</strong>
+**Response:**
 ```json
 {
   "success": true,
@@ -264,14 +234,14 @@ curl -X POST http://localhost:8000/api/disease/recommend \
 
 #### 3. Batch Prediction
 
-<strong>Request:</strong>
+**Request:**
 ```bash
 curl -X POST http://localhost:8000/api/predict/batch \
   -H "Content-Type: application/json" \
   -d '{"chemicals": ["glyphosate", "chlorpyrifos", "mancozeb"]}'
 ```
 
-<strong>Response:</strong>
+**Response:**
 ```json
 {
   "total": 3,
@@ -353,15 +323,7 @@ RESULTS: 12/13 tests passed
 | MODEL_PATH | "models" | Model directory |
 | LOG_LEVEL | "info" | Logging level |
 
-### Production Considerations
 
-- Use Gunicorn instead of Uvicorn
-- Enable HTTPS with a reverse proxy (nginx)
-- Add rate limiting for public APIs
-- Implement API key authentication
-- Use Redis for response caching
-
----
 
 ## 📁 Project Structure
 
@@ -404,75 +366,20 @@ safe-shamba-ai/
 
 ---
 
-## 📊 Thesis Results
-
-### Research Questions Answered
-
-1. **Can ML predict pesticide toxicity accurately?**
-   - ✅ Yes, with 100% test accuracy
-
-2. **What features are most important?**
-   - LD50 oral toxicity (28.7%)
-   - LogP (12.0%)
-   - Molecular weight (10.2%)
-
-3. **Can the system help Kenyan farmers?**
-   - ✅ Yes, with farmer-friendly messages
-
-### Key Findings
-
-- Random Forest outperformed Gradient Boosting, Logistic Regression, and SVM
-- Physicochemical properties are more important than toxicity flags
-- The system successfully blocks all highly hazardous chemicals (Classes Ia/Ib)
-
-### WHO Hazard Classes Explained
-
-| Class | Meaning | Action | PPE | Re-entry |
-|-------|---------|--------|-----|----------|
-| U | Unlikely hazardous | APPROVED | Gloves | 4 hours |
-| III | Slightly hazardous | CAUTION | Long sleeves | 12 hours |
-| II | Moderately hazardous | WARNING | Coveralls + mask | 24 hours |
-| Ib | Highly hazardous | BLOCKED | Full gear | 48 hours |
-| Ia | Extremely hazardous | BLOCKED | Suit + respirator | 72 hours |
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 📧 Contact
-
-<strong>Author:</strong> [Your Name]
-<strong>Email:</strong> [your.email@university.edu]
-<strong>Thesis Supervisor:</strong> [Supervisor Name]
-<strong>University:</strong> [Your University]
-
-<strong>GitHub:</strong> [https://github.com/yourusername/safe-shamba-ai](https://github.com/yourusername/safe-shamba-ai)
-<strong>API Docs:</strong> [http://localhost:8000/docs](http://localhost:8000/docs)
-
----
-
 ## 🙏 Acknowledgments
 
 - WHO for hazard classification data
 - PubChem for chemical properties
 - Kenya PCPB for regulatory information
-- [Your University] for thesis supervision
 
 ---
 
 <div align="center">
   
-<strong>Made with ❤️ for Kenyan Farmers</strong>
+**Made with ❤️ for Kenyan Farmers**
 
 *"Safeguarding harvests, protecting lives"*
 
-<strong>Version 1.0.0 | © 2024 Safe_Shamba AI</strong>
+**Version 1.0.0 | © 2024 Safe_Shamba AI**
 
 </div>
-```
-
-This README.md is ready to copy and use! Just save it as `README.md` in your project root.
