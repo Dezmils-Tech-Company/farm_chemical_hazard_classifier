@@ -16,6 +16,8 @@ project_root = Path(__file__).parent.parent
 sys.path.append(str(project_root))
 
 from api.endpoints import predict, diseases, health, chemicals
+from fastapi.middleware.gzip import GZipMiddleware
+from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="Agricultural Chemical Safety AI",
@@ -36,6 +38,7 @@ safe pesticides for crop diseases.
     redoc_url="/redoc"
 )
 
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -64,6 +67,18 @@ async def root():
         }
     }
 
+from starlette.middleware.base import BaseHTTPMiddleware
+from datetime import datetime
+
+class CacheControlMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        response = await call_next(request)
+        # Cache static responses for 1 hour
+        if request.url.path in ['/api/health', '/api/diseases', '/api/chemicals']:
+            response.headers["Cache-Control"] = "max-age=3600"
+        return response
+
+app.add_middleware(CacheControlMiddleware)
 
 if __name__ == "__main__":
     import uvicorn

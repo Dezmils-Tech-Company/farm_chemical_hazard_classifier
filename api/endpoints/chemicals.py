@@ -1,41 +1,62 @@
-"""Endpoint for listing available chemicals"""
+# api/endpoints/chemicals.py
+"""Chemicals listing endpoints"""
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Query
 from pathlib import Path
 import sys
 import pandas as pd
 
-router = APIRouter()
-
-# Load your chemical database
 project_root = Path(__file__).parent.parent.parent
 sys.path.append(str(project_root))
 
-try:
-    # Adjust this path to your actual data file
-    df = pd.read_csv(project_root / "data" / "processed" / "master_dataset.csv")
-    CHEMICALS_DB = df.to_dict('records')
-except Exception as e:
-    CHEMICALS_DB = []
-    print(f"Warning: Could not load chemicals database: {e}")
+router = APIRouter()
 
+# Global database cache
+_database = None
+
+def get_database():
+    global _database
+    if _database is None:
+        db_path = project_root / 'data/processed/master_preprocessed.csv'
+        if db_path.exists():
+            _database = pd.read_csv(db_path)
+    return _database
 
 @router.get("/chemicals")
-async def list_chemicals(skip: int = 0, limit: int = 100):
-    """List all available chemicals"""
-    chemicals = CHEMICALS_DB[skip:skip + limit]
-    return {
-        "total": len(CHEMICALS_DB),
-        "limit": limit,
-        "skip": skip,
-        "chemicals": chemicals
-    }
-
-
-@router.get("/chemicals/{chemical_name}")
-async def get_chemical(chemical_name: str):
-    """Get specific chemical details"""
-    for chem in CHEMICALS_DB:
-        if chem.get('name', '').lower() == chemical_name.lower():
-            return chem
-    raise HTTPException(status_code=404, detail=f"Chemical '{chemical_name}' not found")
+async def list_chemicals(
+    limit: int = Query(50, description="Maximum number of chemicals to return", ge=1, le=200),
+    search: str = Query(None, description="Search by chemical name")
+):
+    """List available chemicals in the database"""
+    
+    try:
+        db = get_database()
+        
+        if db is None:
+            return {
+                "total": 0,
+                "chemicals": [],
+                "error": "Database not loaded"
+            }
+        
+        # Get chemicals as list of strings
+        chemicals = db['chemical_name'].tolist()
+        
+        if search:
+            chemicals = [c for c in chemicals if search.lower() in c.lower()]
+        
+        # Ensure we return strings
+        chemical_list = [str(c) for c in chemicals[:limit]]
+        
+        return {
+            "total": len(chemicals),
+            "chemicals": chemical_list
+        }
+        
+    except Exception as e:
+        print(f"Error in list_chemicals: {e}")
+        return {
+            "total": 0,
+            "chemicals": [],
+            "error": str(e)
+        }
