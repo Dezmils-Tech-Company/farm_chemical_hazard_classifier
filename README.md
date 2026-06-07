@@ -1,9 +1,9 @@
 ```markdown
-
+```
 # 🌾 Safe_Shamba AI
 
 ### *AI-Powered Pesticide Safety System for Kenyan Farmers*
-
+```
 ```
 Overview
 --------
@@ -106,6 +106,7 @@ For full documentation and deployment instructions, refer to the docs/ directory
 | Atrazine | III (CAUTION) | III | 85% | ✅ |
 | Cypermethrin | II (WARNING) | II | 100% | ✅ |
 ```
+```
 ---
 
 ## 🚀 Installation
@@ -118,8 +119,8 @@ For full documentation and deployment instructions, refer to the docs/ directory
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/safe-shamba-ai.git
-cd safe-shamba-ai
+git clone https://github.com/Dezmils-Tech-Company/farm_chemical_hazard_classifier
+cd agri_chem_safety
 
 # Install dependencies
 pip install -r requirements.txt
@@ -150,7 +151,7 @@ docker-compose up -d
 2. Create `render.yaml` in root
 3. Connect repository to Render
 4. Deploy automatically
-
+```
 ---
 
 ## 📡 API Usage
@@ -267,7 +268,7 @@ curl http://localhost:8000/api/chemicals?limit=20
 ### Interactive Documentation
 
 Open your browser to: **http://localhost:8000/docs**
-
+```
 ---
 
 ## 🧪 Testing
@@ -382,3 +383,5 @@ safe-shamba-ai/
 **Version 1.0.0 | © 2024 Safe_Shamba AI**
 
 </div>
+```
+```
