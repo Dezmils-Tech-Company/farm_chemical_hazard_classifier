@@ -20,8 +20,7 @@ from api.endpoints import predict, diseases, health, chemicals
 app = FastAPI(
     title="Agricultural Chemical Safety AI",
     description="""
-## Thesis Project: AI for Pesticide Safety in Kenya
-
+Safe_Shamba AI for Pesticide Safety in Kenya
 Provides toxicity predictions for agricultural chemicals and recommends
 safe pesticides for crop diseases.
 
@@ -53,7 +52,7 @@ app.include_router(chemicals.router, prefix="/api", tags=["Chemicals"])
 @app.get("/", tags=["Root"])
 async def root():
     return {
-        "message": "Agricultural Chemical Safety AI API",
+        "message": "Safe_Shamba AI: Agricultural Chemical Safety API",
         "version": "1.0.0",
         "docs": "/docs",
         "endpoints": {

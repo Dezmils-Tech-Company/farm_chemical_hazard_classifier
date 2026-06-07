@@ -13,7 +13,7 @@ sys.path.append(str(project_root))
 
 try:
     # Adjust this path to your actual data file
-    df = pd.read_csv(project_root / "data" / "chemicals.csv")
+    df = pd.read_csv(project_root / "data" / "processed" / "master_dataset.csv")
     CHEMICALS_DB = df.to_dict('records')
 except Exception as e:
     CHEMICALS_DB = []
