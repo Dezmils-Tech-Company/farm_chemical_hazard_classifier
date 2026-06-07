@@ -1,10 +1,21 @@
 # src/safety_predictor.py (COMPLETE FIXED VERSION)
 """Step 3: Predict chemical safety using trained model"""
 
+import os
 import pandas as pd
 import numpy as np
 import joblib
 from pathlib import Path
+
+# Add this method to handle different environments
+def __init__(self, model_path="models"):
+    if os.path.exists('/app'):
+        self.project_root = Path('/app')
+    else:
+        self.project_root = Path.cwd()
+    
+    self.model_path = self.project_root / model_path
+   
 
 class SafetyPredictor:
     """Predict WHO hazard class for any chemical"""

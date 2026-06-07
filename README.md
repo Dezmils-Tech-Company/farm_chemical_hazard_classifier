@@ -4,7 +4,7 @@
 
 ### *AI-Powered Pesticide Safety System for Kenyan Farmers*
 
-
+```
 Overview
 --------
 Safe_Shamba AI  assists farmers by predicting hazard classifications for agricultural chemicals and delivering concise, actionable safety guidance. The system is implemented with a Random Forest classifier and served via a FastAPI-based REST API.
@@ -80,8 +80,7 @@ For full documentation and deployment instructions, refer to the docs/ directory
 - Color-coded responses (green, yellow, orange, red)
 
 ---
-
-## 📈 Model Performance
+```
 ```
 ### Classification Report
 
